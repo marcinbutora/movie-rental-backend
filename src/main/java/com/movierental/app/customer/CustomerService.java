@@ -43,4 +43,21 @@ public class CustomerService {
             throw new Exception("Customer not found!");
         }
     }
+
+    public Customer updatePerson(CustomerDTO customerDTO) throws Exception {
+        Optional<Customer> foundedCustomerByEmail = customerRepository.findByEmail(customerDTO.getEmail());
+        try {
+            if (foundedCustomerByEmail.isEmpty()) {
+                Customer customer = new Customer();
+                customer.setEmail(customerDTO.getEmail());
+                customer.setFirstName(customerDTO.getFirstName());
+                customer.setLastName(customerDTO.getLastName());
+                return customer;
+            }
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return customerConverter.dtoToEntity(customerDTO);
+    }
 }
