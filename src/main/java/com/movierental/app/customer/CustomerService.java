@@ -34,7 +34,7 @@ public class CustomerService {
 
     public void deleteCustomer(CustomerDTO customerDTO) {
         log.info("Searching customer by: " + customerDTO.getEmail());
-        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(customerDTO);
+        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(customerDTO.getEmail());
         log.info("Customer with mail: " + customerDTO.getEmail() + " has been removed");
         deleteCustomer(customerDTO, foundedCustomerByEmail);
     }
@@ -45,8 +45,8 @@ public class CustomerService {
         }
     }
 
-    public Customer updatePerson(CustomerDTO customerDTO) throws Exception {
-        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(customerDTO);
+    public Customer updatePerson(String email, CustomerDTO customerDTO) throws Exception {
+        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(email);
         try {
             if (foundedCustomerByEmail.isEmpty()) {
                 Customer customer = new Customer();
@@ -62,7 +62,7 @@ public class CustomerService {
         return customerConverter.dtoToEntity(customerDTO);
     }
 
-    private Optional<Customer> getCustomerByMail(CustomerDTO customerDTO) {
-        return customerRepository.findByEmail(customerDTO.getEmail());
+    private Optional<Customer> getCustomerByMail(String email) {
+        return customerRepository.findByEmail(email);
     }
 }
