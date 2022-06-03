@@ -32,20 +32,21 @@ public class CustomerService {
         return customerRepository.save(customerConverter.dtoToEntity(customerDTO));
     }
 
-    void deleteCustomer(String emailCustomer) throws Exception {
-        checkIfCustomerExistByEmail(emailCustomer);
-        customerRepository.findByEmail(emailCustomer);
+    public void deleteCustomer(CustomerDTO customerDTO) {
+        log.info("Searching customer by: " + customerDTO.getEmail());
+        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(customerDTO);
+        log.info("Customer with mail: " + customerDTO.getEmail() + " has been removed");
+        deleteCustomer(customerDTO, foundedCustomerByEmail);
     }
 
-    void checkIfCustomerExistByEmail(String email) throws Exception {
-        final boolean exists = customerRepository.findCustomerByEmail(email);
-        if (!exists) {
-            throw new Exception("Customer not found!");
+    private void deleteCustomer(CustomerDTO customerDTO, Optional<Customer> foundedCustomerByEmail) {
+        if (foundedCustomerByEmail.isPresent()) {
+            customerRepository.delete(customerConverter.dtoToEntity(customerDTO));
         }
     }
 
     public Customer updatePerson(CustomerDTO customerDTO) throws Exception {
-        Optional<Customer> foundedCustomerByEmail = customerRepository.findByEmail(customerDTO.getEmail());
+        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(customerDTO);
         try {
             if (foundedCustomerByEmail.isEmpty()) {
                 Customer customer = new Customer();
@@ -59,5 +60,9 @@ public class CustomerService {
             throw new Exception(e.getMessage());
         }
         return customerConverter.dtoToEntity(customerDTO);
+    }
+
+    private Optional<Customer> getCustomerByMail(CustomerDTO customerDTO) {
+        return customerRepository.findByEmail(customerDTO.getEmail());
     }
 }

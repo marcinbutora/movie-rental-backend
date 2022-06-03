@@ -55,11 +55,11 @@ class CustomerServiceTest {
     }
 
     @Test
-    void deleteCustomer() throws Exception {
+    void deleteCustomer() {
         // given
         Customer customer = new Customer(1L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
         // when
-        customerService.deleteCustomer(customer.getEmail());
+        customerService.deleteCustomer(customerConverter.entityToDto(customer));
         // then
         final List<Customer> customerList = customerService.getCustomersList();
         assertThat(customerList).isEmpty();
