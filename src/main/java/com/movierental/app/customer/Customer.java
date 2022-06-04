@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class Customer {
+class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class Customer {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdDate;
 
-    public Customer(Long id, String firstName, String lastName, String email, LocalDateTime createdDate) {
+    Customer(Long id, String firstName, String lastName, String email, LocalDateTime createdDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,53 +30,53 @@ public class Customer {
         this.createdDate = createdDate;
     }
 
-    public Customer(String firstName, String lastName, String email, LocalDateTime createdDate) {
+    Customer(String firstName, String lastName, String email, LocalDateTime createdDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.createdDate = createdDate;
     }
 
-    public Customer() {
+    Customer() {
     }
 
-    public Long getId() {
+    Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
+    String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    void setEmail(String email) {
         this.email = email;
     }
 
-    public LocalDateTime getCreatedDate() {
+    LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

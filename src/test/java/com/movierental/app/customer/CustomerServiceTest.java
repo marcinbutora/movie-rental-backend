@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 class CustomerServiceTest {
     @Autowired
-    private CustomerService customerService;
+    private CustomerFacade customerFacade;
     @Autowired
     private CustomerConverter customerConverter;
 
@@ -37,9 +36,9 @@ class CustomerServiceTest {
         CustomerDTO customer1 = createCustomerDTO("Marcin", "Kowalski", "mbutora@gmail.com", LocalDateTime.now());
         CustomerDTO customer2 = createCustomerDTO("Anna", "Kowalska", "abutora@gmail.com", LocalDateTime.now());
         // when
-        Customer customerSavedOne = customerService.savePerson(customer1);
-        Customer customerSavedTwo = customerService.savePerson(customer2);
-        customerService.getCustomersList();
+        CustomerDTO customerSavedOne = customerFacade.saveCustomer(customer1);
+        CustomerDTO customerSavedTwo = customerFacade.saveCustomer(customer2);
+        customerFacade.getCustomers();
         // then
         assertThat(List.of(customerSavedOne,customerSavedTwo)).isNotEmpty();
     }
@@ -49,7 +48,7 @@ class CustomerServiceTest {
         // given
         CustomerDTO customer = createCustomerDTO("Marcin", "Butora", "kabutora@gmail.com", LocalDateTime.now());
         // when
-        Customer savedCustomer = customerService.savePerson(customer);
+        CustomerDTO savedCustomer = customerFacade.saveCustomer(customer);
         // then
         assertThat(customer.getEmail()).isEqualTo(savedCustomer.getEmail());
     }
@@ -59,7 +58,7 @@ class CustomerServiceTest {
         // given
         CustomerDTO customer = createCustomerDTO("Jan", "Kowalski", "jkowalski@gmail.com", LocalDateTime.now());
         // when
-        Customer savedCustomer = customerService.savePerson(customer);
+        CustomerDTO savedCustomer = customerFacade.saveCustomer(customer);
         // then
         assertThat(savedCustomer.getEmail()).isEqualTo(customer.getEmail());
     }
@@ -69,9 +68,9 @@ class CustomerServiceTest {
         // given
         CustomerDTO customer = createCustomerDTO( "John", "Smith", "jddsmith@gmail.com", LocalDateTime.now());
         // when
-        customerService.deleteCustomer(customer);
+        customerFacade.deleteCustomer(customer);
         // then
-        final List<CustomerDTO> customerList = customerService.getCustomersList();
+        final List<CustomerDTO> customerList = customerFacade.getCustomers();
         assertThat(customerList).doesNotContain(customer);
     }
 
@@ -82,7 +81,7 @@ class CustomerServiceTest {
         CustomerDTO customerToChange = createCustomerDTO("Anna", "Kowalska", "akowalska@gmail.com", LocalDateTime.now());
         // when
 
-        CustomerDTO customerUpdated = customerService.updateCustomer(customerInDB.getEmail(), customerToChange);
+        CustomerDTO customerUpdated = customerFacade.updateCustomer(customerInDB.getEmail(), customerToChange);
         // then
         assertThat(customerUpdated).isEqualTo(customerUpdated);
     }
@@ -93,9 +92,9 @@ class CustomerServiceTest {
         CustomerDTO customerDTO = new CustomerDTO("Test", "Test", "test@test.com", LocalDateTime.now());
         CustomerDTO customerDTO1 = new CustomerDTO("Test 2", "Test 2", "test@test.com", LocalDateTime.now());
         // when
-        customerService.savePerson(customerDTO);
+        customerFacade.saveCustomer(customerDTO);
         // then
-        Assertions.assertThrows(CustomerAlreadyExistsException.class, () -> customerService.savePerson(customerDTO1));
+        Assertions.assertThrows(CustomerAlreadyExistsException.class, () -> customerFacade.saveCustomer(customerDTO1));
     }
 
 }

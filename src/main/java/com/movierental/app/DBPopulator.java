@@ -1,16 +1,14 @@
 package com.movierental.app;
 
-import com.movierental.app.customer.CustomerDTO;
-import com.movierental.app.customer.CustomerService;
+import com.movierental.app.customer.CustomerFacade;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 
 @Component
 public class DBPopulator implements CommandLineRunner {
 
-    DBPopulator(CustomerService customerService) {
+    DBPopulator(CustomerFacade customerFacade) {
     }
     @Override
     public void run(String... args) {
