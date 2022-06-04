@@ -46,7 +46,7 @@ public class CustomerService {
         }
     }
 
-    public Customer updateCustomer(String email, Customer customer) {
+    public CustomerDTO updateCustomer(String email, CustomerDTO customer) {
         log.info("Searching for customer by mail: " + email);
         Optional<Customer> byEmail = getCustomerByMail(email);
         byEmail.ifPresent(customerRepository::save);

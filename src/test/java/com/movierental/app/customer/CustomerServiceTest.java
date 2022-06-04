@@ -29,16 +29,6 @@ class CustomerServiceTest {
         return customerDTOS;
     }
 
-    private Customer createCustomer(Long id, String firstName, String lastName, String email, LocalDateTime created) {
-        Customer newCustomer = new Customer();
-        newCustomer.setId(id);
-        newCustomer.setFirstName(firstName);
-        newCustomer.setLastName(lastName);
-        newCustomer.setEmail(email);
-        newCustomer.setCreatedDate(created);
-        return newCustomer;
-    }
-
     @Test
     void shouldReturnListOfCustomers() {
         // given
@@ -53,14 +43,13 @@ class CustomerServiceTest {
     }
 
     @Test
-    void shouldReturnCustomerById() {
+    void shouldReturnCustomerByEmail() {
         // given
-        Customer customer = createCustomer(5L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customer = createCustomerDTO("Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
         // when
-        Customer customerSaved = customerService.savePerson(customerConverter.entityToDto(customer));
-        Optional<Customer> customerById = customerService.getCustomerById(customerSaved.getId());
+        Customer savedCustomer = customerService.savePerson(customer);
         // then
-        assertThat(customerById.get().getId()).isEqualTo(customer.getId());
+        assertThat(customer.getEmail()).isEqualTo(savedCustomer.getEmail());
     }
 
     @Test
@@ -76,22 +65,22 @@ class CustomerServiceTest {
     @Test
     void shouldRemoveCustomerGivenByEmail() {
         // given
-        Customer customer = createCustomer(3L, "John", "Smith", "jsmith@gmail.com", LocalDateTime.now());
+        CustomerDTO customer = createCustomerDTO( "John", "Smith", "jsmith@gmail.com", LocalDateTime.now());
         // when
-        customerService.deleteCustomer(customerConverter.entityToDto(customer));
+        customerService.deleteCustomer(customer);
         // then
         final List<CustomerDTO> customerList = customerService.getCustomersList();
-        assertThat(customerList).doesNotContain(customerConverter.entityToDto(customer));
+        assertThat(customerList).doesNotContain(customer);
     }
 
     @Test
     void shouldUpdateCustomerByGivenMail() {
         // given
-        Customer customerInDB = createCustomer(1L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
-        Customer customerToChange = createCustomer(2L,"Anna", "Kowalska", "akowalska@gmail.com", LocalDateTime.now());
+        CustomerDTO customerInDB = createCustomerDTO( "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customerToChange = createCustomerDTO("Anna", "Kowalska", "akowalska@gmail.com", LocalDateTime.now());
         // when
 
-        Customer customerUpdated = customerService.updateCustomer(customerInDB.getEmail(), customerToChange);
+        CustomerDTO customerUpdated = customerService.updateCustomer(customerInDB.getEmail(), customerToChange);
         // then
         assertThat(customerUpdated).isEqualTo(customerUpdated);
     }
