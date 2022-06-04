@@ -32,7 +32,7 @@ public class CustomerService {
         log.info("Saving new customer with e-mail: " + customerDTO.getEmail() + " in database");
         log.info("Customer created at: " + customerDTO.getCreatedDate());
         if (customerRepository.findCustomerByEmail(customerDTO.getEmail()).isPresent()) {
-            throw new CustomerAlreadyExistsException("Customer already exists");
+            throw new CustomerAlreadyExistsException("Customer with this mail: " + customerDTO.getEmail() + " already exists");
         }
         return customerRepository.save(customerConverter.dtoToEntity(customerDTO));
     }

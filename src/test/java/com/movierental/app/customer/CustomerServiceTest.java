@@ -1,5 +1,7 @@
 package com.movierental.app.customer;
 
+import com.movierental.app.exception.CustomerAlreadyExistsException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -83,6 +85,17 @@ class CustomerServiceTest {
         CustomerDTO customerUpdated = customerService.updateCustomer(customerInDB.getEmail(), customerToChange);
         // then
         assertThat(customerUpdated).isEqualTo(customerUpdated);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenCustomerAlreadyExists() {
+        // given
+        CustomerDTO customerDTO = new CustomerDTO("Test", "Test", "test@test.com", LocalDateTime.now());
+        CustomerDTO customerDTO1 = new CustomerDTO("Test 2", "Test 2", "test@test.com", LocalDateTime.now());
+        // when
+        customerService.savePerson(customerDTO);
+        // then
+        Assertions.assertThrows(CustomerAlreadyExistsException.class, () -> customerService.savePerson(customerDTO1));
     }
 
 }
