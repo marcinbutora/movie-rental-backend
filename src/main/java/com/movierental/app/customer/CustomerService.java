@@ -37,8 +37,10 @@ class CustomerService {
     void deleteCustomer(String email) {
         Optional<Customer> foundedCustomer = customerRepository.findCustomerByEmail(email);
         if (foundedCustomer.isEmpty()) {
-            throw new CustomerNotFoundException("Customer not found!");
+            log.warn("Customer with email " + email + " not found!");
+            throw new CustomerNotFoundException("Customer with this email: " + email + " is not exist!");
         }
+        log.info("Customer " + foundedCustomer.get().getFirstName() + " " + foundedCustomer.get().getLastName() + " was removed");
         customerRepository.deleteCustomerByEmail(email);
     }
 

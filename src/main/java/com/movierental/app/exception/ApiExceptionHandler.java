@@ -14,4 +14,10 @@ public class ApiExceptionHandler {
         ApiException apiException = new ApiException(LocalDateTime.now(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(apiException, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(value = {CustomerNotFoundException.class})
+    ResponseEntity<ApiException> handleCustomerNotFound(CustomerNotFoundException exception, WebRequest request) {
+        ApiException apiException = new ApiException(LocalDateTime.now(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(apiException, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
