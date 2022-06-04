@@ -28,6 +28,7 @@ class CustomerService {
     CustomerDTO savePerson(CustomerDTO customerDTO) {
         log.info("Saving new customer with e-mail: " + customerDTO.getEmail() + " in database");
         if (customerRepository.findCustomerByEmail(customerDTO.getEmail()).isPresent()) {
+            log.warn("Customer with this mail: " + customerDTO.getEmail() + " is already in database!");
             throw new CustomerAlreadyExistsException("Customer with this mail: " + customerDTO.getEmail() + " already exists");
         }
         customerRepository.save(customerConverter.dtoToEntity(customerDTO));
