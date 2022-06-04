@@ -1,0 +1,7 @@
+package com.movierental.app.exception;
+
+public class CustomerAlreadyExistsException extends RuntimeException {
+    public CustomerAlreadyExistsException(String message) {
+        super(message);
+    }
+}

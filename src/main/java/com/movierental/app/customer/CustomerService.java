@@ -1,5 +1,6 @@
 package com.movierental.app.customer;
 
+import com.movierental.app.exception.CustomerAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,9 @@ public class CustomerService {
     public Customer savePerson(CustomerDTO customerDTO) {
         log.info("Saving new customer with e-mail: " + customerDTO.getEmail() + " in database");
         log.info("Customer created at: " + customerDTO.getCreatedDate());
+        if (customerRepository.findCustomerByEmail(customerDTO.getEmail()).isPresent()) {
+            throw new CustomerAlreadyExistsException("Customer already exists");
+        }
         return customerRepository.save(customerConverter.dtoToEntity(customerDTO));
     }
 

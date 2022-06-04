@@ -45,7 +45,7 @@ class CustomerServiceTest {
     @Test
     void shouldReturnCustomerByEmail() {
         // given
-        CustomerDTO customer = createCustomerDTO("Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customer = createCustomerDTO("Marcin", "Butora", "kabutora@gmail.com", LocalDateTime.now());
         // when
         Customer savedCustomer = customerService.savePerson(customer);
         // then
@@ -65,7 +65,7 @@ class CustomerServiceTest {
     @Test
     void shouldRemoveCustomerGivenByEmail() {
         // given
-        CustomerDTO customer = createCustomerDTO( "John", "Smith", "jsmith@gmail.com", LocalDateTime.now());
+        CustomerDTO customer = createCustomerDTO( "John", "Smith", "jddsmith@gmail.com", LocalDateTime.now());
         // when
         customerService.deleteCustomer(customer);
         // then
@@ -76,7 +76,7 @@ class CustomerServiceTest {
     @Test
     void shouldUpdateCustomerByGivenMail() {
         // given
-        CustomerDTO customerInDB = createCustomerDTO( "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customerInDB = createCustomerDTO( "Marcin", "Butora", "kambutora@gmail.com", LocalDateTime.now());
         CustomerDTO customerToChange = createCustomerDTO("Anna", "Kowalska", "akowalska@gmail.com", LocalDateTime.now());
         // when
 

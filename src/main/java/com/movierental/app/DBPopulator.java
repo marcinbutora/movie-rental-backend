@@ -19,7 +19,7 @@ public class DBPopulator implements CommandLineRunner {
     @Override
     public void run(String... args) {
         CustomerDTO customerDTO = new CustomerDTO("John", "Smith", "jshmith@mail.com", LocalDateTime.now());
-        CustomerDTO customerDTO1 = new CustomerDTO("Josh", "Virginia", "offgrid@gmail.com", LocalDateTime.now());        customerService.savePerson(customerDTO);
+        CustomerDTO customerDTO1 = new CustomerDTO("Josh", "Virginia", "offgrid@gmail.com", LocalDateTime.now());
         customerService.savePerson(customerDTO);
         customerService.savePerson(customerDTO1);
     }
