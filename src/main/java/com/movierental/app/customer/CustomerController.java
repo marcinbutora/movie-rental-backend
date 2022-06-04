@@ -22,4 +22,9 @@ public class CustomerController {
     public Customer saveCustomer(@RequestBody CustomerDTO customerDTO) {
         return customerService.savePerson(customerDTO);
     }
+
+    @DeleteMapping
+    public void deleteCustomer(@RequestBody CustomerDTO customerDTO) {
+        customerService.deleteCustomer(customerDTO);
+    }
 }
