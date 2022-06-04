@@ -27,6 +27,12 @@ class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{email}")
+    ResponseEntity<CustomerDTO> updateCustomer(@PathVariable String email, @RequestBody CustomerDTO customerDTO) {
+        CustomerDTO customer = customerFacade.updateCustomer(email, customerDTO);
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/{email}")
     ResponseEntity<?> deleteCustomer(@PathVariable String email) {
         customerFacade.deleteCustomer(email);

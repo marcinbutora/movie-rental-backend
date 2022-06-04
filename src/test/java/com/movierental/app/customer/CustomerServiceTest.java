@@ -81,7 +81,7 @@ class CustomerServiceTest {
         CustomerDTO customerInDB = createCustomerDTO( "Marcin", "Butora", "kambutora@gmail.com", LocalDateTime.now());
         CustomerDTO customerToChange = createCustomerDTO("Anna", "Kowalska", "akowalska@gmail.com", LocalDateTime.now());
         // when
-
+        customerFacade.saveCustomer(customerInDB);
         CustomerDTO customerUpdated = customerFacade.updateCustomer(customerInDB.getEmail(), customerToChange);
         // then
         assertThat(customerUpdated).isEqualTo(customerUpdated);

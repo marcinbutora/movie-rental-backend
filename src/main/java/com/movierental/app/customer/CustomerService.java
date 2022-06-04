@@ -47,9 +47,14 @@ class CustomerService {
     CustomerDTO updateCustomer(String email, CustomerDTO customer) {
         log.info("Searching for customer by mail: " + email);
         Optional<Customer> byEmail = getCustomerByMail(email);
-        byEmail.ifPresent(customerRepository::save);
+        if (byEmail.isEmpty()) {
+            log.warn("Customer with this mail: " + email + " is not exist!");
+            throw new CustomerNotFoundException("Customer with this mail: " + email + " is not exist!");
+        }
+        byEmail.get().update(customerConverter.dtoToEntity(customer));
+        customerRepository.save(byEmail.get());
         log.info("Updated customer saved as a: " + customer.getFirstName() + " " + customer.getLastName());
-        return customer;
+        return customerConverter.entityToDto(byEmail.get());
     }
 
     Optional<Customer> getCustomerByMail(String email) {

@@ -84,6 +84,7 @@ class Customer {
         this.firstName = customer.getFirstName();
         this.lastName = customer.getLastName();
         this.email = customer.getEmail();
+        this.createdDate = customer.getCreatedDate();
     }
 
     @Override
