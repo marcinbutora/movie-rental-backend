@@ -40,19 +40,20 @@ class CustomerServiceTest {
     }
 
     @Test
-    void getCustomersList() {
+    void shouldReturnListOfCustomers() {
         // given
         CustomerDTO customer1 = createCustomerDTO("Marcin", "Kowalski", "mbutora@gmail.com", LocalDateTime.now());
         CustomerDTO customer2 = createCustomerDTO("Anna", "Kowalska", "abutora@gmail.com", LocalDateTime.now());
         // when
         Customer customerSavedOne = customerService.savePerson(customer1);
         Customer customerSavedTwo = customerService.savePerson(customer2);
+        customerService.getCustomersList();
         // then
         assertThat(List.of(customerSavedOne,customerSavedTwo)).isNotEmpty();
     }
 
     @Test
-    void getCustomerById() {
+    void shouldReturnCustomerById() {
         // given
         Customer customer = createCustomer(1L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
         // when
@@ -63,17 +64,17 @@ class CustomerServiceTest {
     }
 
     @Test
-    void savePerson() {
+    void shouldSaveCustomer() {
         // given
-        Customer customer = createCustomer(2L, "Jan", "Kowalski", "jkowalski@gmail.com", LocalDateTime.now());
+        CustomerDTO customer = createCustomerDTO("Jan", "Kowalski", "jkowalski@gmail.com", LocalDateTime.now());
         // when
-        Customer savedCustomer = customerService.savePerson(customerConverter.entityToDto(customer));
+        Customer savedCustomer = customerService.savePerson(customer);
         // then
-        assertThat(savedCustomer).isEqualTo(customer);
+        assertThat(savedCustomer.getEmail()).isEqualTo(customer.getEmail());
     }
 
     @Test
-    void deleteCustomer() {
+    void shouldRemoveCustomerGivenByEmail() {
         // given
         Customer customer = createCustomer(3L, "John", "Smith", "jsmith@gmail.com", LocalDateTime.now());
         // when
@@ -81,18 +82,6 @@ class CustomerServiceTest {
         // then
         final List<Customer> customerList = customerService.getCustomersList();
         assertThat(customerList).isEmpty();
-    }
-
-    @Test
-    void updatePerson() throws Exception {
-        // given
-        CustomerDTO customerDTO = createCustomerDTO("John", "Smith", "jsmith@gmail.com", LocalDateTime.now());
-        CustomerDTO customerToChange = createCustomerDTO("Marry", "Smith", "msmith@o2.pl", LocalDateTime.now());
-        // when
-        Customer customerSaved = customerService.savePerson(customerDTO);
-        Customer customerUpdated = customerService.updatePerson(customerDTO.getEmail(), customerToChange);
-        //then
-        assertThat(customerSaved).isEqualTo(customerUpdated);
     }
 
 }

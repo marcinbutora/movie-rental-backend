@@ -18,7 +18,7 @@ public class CustomerService {
     }
 
     public List<Customer> getCustomersList() {
-        log.info("Getting customers list");
+        log.info("Getting customers list, all customers count: " + customerRepository.findAll().size());
         return customerRepository.findAll();
     }
 
@@ -28,13 +28,13 @@ public class CustomerService {
     }
 
     public Customer savePerson(CustomerDTO customerDTO) {
-        log.info("Saving new customer in database");
+        log.info("Saving new customer with e-mail: " + customerDTO.getEmail() + " in database");
         return customerRepository.save(customerConverter.dtoToEntity(customerDTO));
     }
 
     public void deleteCustomer(CustomerDTO customerDTO) {
         log.info("Searching customer by: " + customerDTO.getEmail());
-        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(customerDTO.getEmail());
+        Optional<Customer> foundedCustomerByEmail = customerRepository.findByEmail(customerDTO.getEmail());
         log.info("Customer with mail: " + customerDTO.getEmail() + " has been removed");
         deleteCustomer(customerDTO, foundedCustomerByEmail);
     }
@@ -45,24 +45,4 @@ public class CustomerService {
         }
     }
 
-    public Customer updatePerson(String email, CustomerDTO customerDTO) throws Exception {
-        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(email);
-        try {
-            if (foundedCustomerByEmail.isEmpty()) {
-                Customer customer = new Customer();
-                customer.setEmail(customerDTO.getEmail());
-                customer.setFirstName(customerDTO.getFirstName());
-                customer.setLastName(customerDTO.getLastName());
-                return customer;
-            }
-        }
-        catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-        return customerConverter.dtoToEntity(customerDTO);
-    }
-
-    private Optional<Customer> getCustomerByMail(String email) {
-        return customerRepository.findByEmail(email);
-    }
 }
