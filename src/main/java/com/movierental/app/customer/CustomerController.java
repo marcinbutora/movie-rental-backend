@@ -1,5 +1,7 @@
 package com.movierental.app.customer;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,17 +16,20 @@ class CustomerController {
     }
 
     @GetMapping
-    List<CustomerDTO> getCustomersList() {
-        return customerFacade.getCustomers();
+    ResponseEntity<List<CustomerDTO>> getCustomersList() {
+        List<CustomerDTO> customerDTOS = customerFacade.getCustomers();
+        return new ResponseEntity<>(customerDTOS, HttpStatus.OK);
     }
 
     @PostMapping
-    CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        return customerFacade.saveCustomer(customerDTO);
+    ResponseEntity<CustomerDTO> saveCustomer(@RequestBody CustomerDTO customerDTO) {
+        CustomerDTO customer = customerFacade.saveCustomer(customerDTO);
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
     @DeleteMapping
-    void deleteCustomer(@RequestBody CustomerDTO customerDTO) {
+    ResponseEntity<?> deleteCustomer(@RequestBody CustomerDTO customerDTO) {
         customerFacade.deleteCustomer(customerDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
