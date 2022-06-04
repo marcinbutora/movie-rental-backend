@@ -29,6 +29,7 @@ public class CustomerService {
 
     public Customer savePerson(CustomerDTO customerDTO) {
         log.info("Saving new customer with e-mail: " + customerDTO.getEmail() + " in database");
+        log.info("Customer created at: " + customerDTO.getCreatedDate());
         return customerRepository.save(customerConverter.dtoToEntity(customerDTO));
     }
 
@@ -54,7 +55,6 @@ public class CustomerService {
     }
 
     private Optional<Customer> getCustomerByMail(String email) {
-        return customerRepository.findByEmail(email);
+        return customerRepository.findCustomerByEmail(email);
     }
-
 }

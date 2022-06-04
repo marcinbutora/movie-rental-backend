@@ -55,7 +55,7 @@ class CustomerServiceTest {
     @Test
     void shouldReturnCustomerById() {
         // given
-        Customer customer = createCustomer(1L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        Customer customer = createCustomer(2L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
         // when
         Customer customerSaved = customerService.savePerson(customerConverter.entityToDto(customer));
         Optional<Customer> customerById = customerService.getCustomerById(customerSaved.getId());
