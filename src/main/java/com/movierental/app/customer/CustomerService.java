@@ -34,7 +34,7 @@ public class CustomerService {
 
     public void deleteCustomer(CustomerDTO customerDTO) {
         log.info("Searching customer by: " + customerDTO.getEmail());
-        Optional<Customer> foundedCustomerByEmail = customerRepository.findByEmail(customerDTO.getEmail());
+        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(customerDTO.getEmail());
         log.info("Customer with mail: " + customerDTO.getEmail() + " has been removed");
         deleteCustomer(customerDTO, foundedCustomerByEmail);
     }
@@ -43,6 +43,18 @@ public class CustomerService {
         if (foundedCustomerByEmail.isPresent()) {
             customerRepository.delete(customerConverter.dtoToEntity(customerDTO));
         }
+    }
+
+    public Customer updateCustomer(String email, Customer customer) {
+        log.info("Searching for customer by mail: " + email);
+        Optional<Customer> byEmail = getCustomerByMail(email);
+        byEmail.ifPresent(customerRepository::save);
+        log.info("Updated customer saved as a: " + customer.getFirstName() + " " + customer.getLastName());
+        return customer;
+    }
+
+    private Optional<Customer> getCustomerByMail(String email) {
+        return customerRepository.findByEmail(email);
     }
 
 }

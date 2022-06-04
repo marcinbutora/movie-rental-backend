@@ -84,4 +84,16 @@ class CustomerServiceTest {
         assertThat(customerList).isEmpty();
     }
 
+    @Test
+    void shouldUpdateCustomerByGivenMail() {
+        // given
+        Customer customerInDB = createCustomer(1L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        Customer customerToChange = createCustomer(2L,"Anna", "Kowalska", "akowalska@gmail.com", LocalDateTime.now());
+        // when
+
+        Customer customerUpdated = customerService.updateCustomer(customerInDB.getEmail(), customerToChange);
+        // then
+        assertThat(customerUpdated).isEqualTo(customerUpdated);
+    }
+
 }
