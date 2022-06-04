@@ -6,25 +6,25 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/customer")
-public class CustomerController {
-    private final CustomerService customerService;
+class CustomerController {
+    private final CustomerFacade customerFacade;
 
-    public CustomerController(CustomerService customerService, CustomerConverter customerConverter) {
-        this.customerService = customerService;
+    CustomerController(CustomerFacade customerFacade, CustomerConverter customerConverter) {
+        this.customerFacade = customerFacade;
     }
 
     @GetMapping
-    public List<CustomerDTO> getCustomersList() {
-        return customerService.getCustomersList();
+    List<CustomerDTO> getCustomersList() {
+        return customerFacade.getCustomers();
     }
 
     @PostMapping
-    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        return customerService.savePerson(customerDTO);
+    CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
+        return customerFacade.saveCustomer(customerDTO);
     }
 
     @DeleteMapping
-    public void deleteCustomer(@RequestBody CustomerDTO customerDTO) {
-        customerService.deleteCustomer(customerDTO);
+    void deleteCustomer(@RequestBody CustomerDTO customerDTO) {
+        customerFacade.deleteCustomer(customerDTO);
     }
 }
