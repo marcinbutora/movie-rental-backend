@@ -27,9 +27,9 @@ class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
-    @DeleteMapping
-    ResponseEntity<?> deleteCustomer(@RequestBody CustomerDTO customerDTO) {
-        customerFacade.deleteCustomer(customerDTO);
+    @DeleteMapping("/{email}")
+    ResponseEntity<?> deleteCustomer(@PathVariable String email) {
+        customerFacade.deleteCustomer(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

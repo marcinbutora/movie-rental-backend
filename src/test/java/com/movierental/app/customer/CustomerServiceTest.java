@@ -68,7 +68,8 @@ class CustomerServiceTest {
         // given
         CustomerDTO customer = createCustomerDTO( "John", "Smith", "jddsmith@gmail.com", LocalDateTime.now());
         // when
-        customerFacade.deleteCustomer(customer);
+        customerFacade.saveCustomer(customer);
+        customerFacade.deleteCustomer(customer.getEmail());
         // then
         final List<CustomerDTO> customerList = customerFacade.getCustomers();
         assertThat(customerList).doesNotContain(customer);

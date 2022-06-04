@@ -1,6 +1,7 @@
 package com.movierental.app.customer;
 
 import com.movierental.app.exception.CustomerAlreadyExistsException;
+import com.movierental.app.exception.CustomerNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -33,17 +34,12 @@ class CustomerService {
         return customerDTO;
     }
 
-    void deleteCustomer(CustomerDTO customerDTO) {
-        log.info("Searching customer by: " + customerDTO.getEmail());
-        Optional<Customer> foundedCustomerByEmail = getCustomerByMail(customerDTO.getEmail());
-        log.info("Customer with mail: " + customerDTO.getEmail() + " has been removed");
-        deleteCustomer(customerDTO, foundedCustomerByEmail);
-    }
-
-    private void deleteCustomer(CustomerDTO customerDTO, Optional<Customer> foundedCustomerByEmail) {
-        if (foundedCustomerByEmail.isPresent()) {
-            customerRepository.delete(customerConverter.dtoToEntity(customerDTO));
+    void deleteCustomer(String email) {
+        Optional<Customer> foundedCustomer = customerRepository.findCustomerByEmail(email);
+        if (foundedCustomer.isEmpty()) {
+            throw new CustomerNotFoundException("Customer not found!");
         }
+        customerRepository.deleteCustomerByEmail(email);
     }
 
     CustomerDTO updateCustomer(String email, CustomerDTO customer) {

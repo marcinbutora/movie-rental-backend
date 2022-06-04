@@ -29,8 +29,8 @@ public class CustomerFacade {
         return customerService.updateCustomer(email, customerDTO);
     }
 
-    public void deleteCustomer(CustomerDTO customerDTO) {
-        customerService.deleteCustomer(customerDTO);
+    public void deleteCustomer(String email) {
+        customerService.deleteCustomer(email);
     }
 
 }
