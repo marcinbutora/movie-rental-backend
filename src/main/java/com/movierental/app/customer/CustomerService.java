@@ -23,11 +23,6 @@ public class CustomerService {
         return customerConverter.entityToDtoList(customerRepository.findAll());
     }
 
-    public Optional<Customer> getCustomerById(Long customerId) {
-        log.info("Getting info about customer id " + customerId);
-        return customerRepository.findById(customerId);
-    }
-
     public Customer savePerson(CustomerDTO customerDTO) {
         log.info("Saving new customer with e-mail: " + customerDTO.getEmail() + " in database");
         log.info("Customer created at: " + customerDTO.getCreatedDate());

@@ -1,5 +1,6 @@
 package com.movierental.app.customer;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.id.IdentityGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,6 +19,7 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdDate;
 
     public Customer(Long id, String firstName, String lastName, String email, LocalDateTime createdDate) {

@@ -1,8 +1,6 @@
 package com.movierental.app.customer;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,12 +9,17 @@ import java.util.List;
 public class CustomerController {
     private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, CustomerConverter customerConverter) {
         this.customerService = customerService;
     }
 
     @GetMapping
     public List<CustomerDTO> getCustomersList() {
         return customerService.getCustomersList();
+    }
+
+    @PostMapping
+    public Customer saveCustomer(@RequestBody CustomerDTO customerDTO) {
+        return customerService.savePerson(customerDTO);
     }
 }
