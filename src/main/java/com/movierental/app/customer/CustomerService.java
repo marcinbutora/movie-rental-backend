@@ -17,9 +17,9 @@ public class CustomerService {
         this.customerConverter = customerConverter;
     }
 
-    public List<Customer> getCustomersList() {
+    public List<CustomerDTO> getCustomersList() {
         log.info("Getting customers list, all customers count: " + customerRepository.findAll().size());
-        return customerRepository.findAll();
+        return customerConverter.entityToDtoList(customerRepository.findAll());
     }
 
     public Optional<Customer> getCustomerById(Long customerId) {

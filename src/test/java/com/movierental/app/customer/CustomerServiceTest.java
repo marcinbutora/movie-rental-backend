@@ -55,7 +55,7 @@ class CustomerServiceTest {
     @Test
     void shouldReturnCustomerById() {
         // given
-        Customer customer = createCustomer(2L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        Customer customer = createCustomer(5L, "Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
         // when
         Customer customerSaved = customerService.savePerson(customerConverter.entityToDto(customer));
         Optional<Customer> customerById = customerService.getCustomerById(customerSaved.getId());
@@ -80,8 +80,8 @@ class CustomerServiceTest {
         // when
         customerService.deleteCustomer(customerConverter.entityToDto(customer));
         // then
-        final List<Customer> customerList = customerService.getCustomersList();
-        assertThat(customerList).isEmpty();
+        final List<CustomerDTO> customerList = customerService.getCustomersList();
+        assertThat(customerList).doesNotContain(customerConverter.entityToDto(customer));
     }
 
     @Test

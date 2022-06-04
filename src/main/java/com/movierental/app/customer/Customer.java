@@ -18,7 +18,6 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdDate;
 
     public Customer(Long id, String firstName, String lastName, String email, LocalDateTime createdDate) {

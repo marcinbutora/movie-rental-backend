@@ -12,6 +12,7 @@ public class CustomerConverter {
         customerDTO.setFirstName(customer.getFirstName());
         customerDTO.setLastName(customer.getLastName());
         customerDTO.setEmail(customer.getEmail());
+        customerDTO.setCreatedDate(customer.getCreatedDate());
         return customerDTO;
     }
 
@@ -24,6 +25,7 @@ public class CustomerConverter {
         customer.setFirstName(customerDTO.getFirstName());
         customer.setLastName(customerDTO.getLastName());
         customer.setEmail(customerDTO.getEmail());
+        customer.setCreatedDate(customerDTO.getCreatedDate());
         return customer;
     }
 
