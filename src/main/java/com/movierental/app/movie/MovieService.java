@@ -52,7 +52,7 @@ class MovieService {
         return movieConverter.entityToDto(foundedMovie.get());
     }
 
-    private int getMoviesCount() {
+    int getMoviesCount() {
         return movieRepository.findAll().size();
     }
 
