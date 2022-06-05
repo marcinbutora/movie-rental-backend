@@ -30,13 +30,13 @@ class MovieService {
     }
 
     void deleteMovie(String title, int year) {
-        Optional<Movie> foundedMovie = movieRepository.findByTitleAndYear(title, year);
+        Optional<Movie> foundedMovie = movieRepository.findByTitleAndYearMovie(title, year);
         if (foundedMovie.isEmpty()) {
             log.warn("Movie with title: " + title + " and year: " + year + " was not found!");
             throw new MovieNotFoundException("Movie with title: " + title + " and year: " + year + " was not found!");
         }
         log.info("Movie " + title + " [" + year + "] was removed!");
-        movieRepository.deleteByTitleAndYear(title, year);
+        movieRepository.deleteByTitleAndYearMovie(title, year);
     }
 
     MovieDTO updateMovie(String title, MovieDTO movie) {
