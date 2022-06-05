@@ -24,7 +24,7 @@ class MovieService {
     }
 
     MovieDTO saveMovie(MovieDTO movieDTO) {
-        log.info("Saving new movie with title " + movieDTO.getTitle());
+        log.info("Saving new movie with title " + movieDTO.getTitle() + " [" + movieDTO.getMovieCategory() + "]");
         movieRepository.save(movieConverter.dtoToEntity(movieDTO));
         return movieDTO;
     }
