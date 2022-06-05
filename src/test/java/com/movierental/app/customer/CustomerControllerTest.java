@@ -38,7 +38,7 @@ class CustomerControllerTest {
         CustomerDTO customerDTO = createCustomer("Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.of(2022,6,5,15,10,23));
         CustomerDTO customerDTO1 = createCustomer("Jan", "Kowalski", "jankowalski@gmail.com", LocalDateTime.of(2022,6,7,11,33,22));
         // expect
-        mockMvc.perform(get("/api/customer"))
+        mockMvc.perform(get("/api/customers"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].firstName").value(customerDTO.getFirstName()))
