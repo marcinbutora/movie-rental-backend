@@ -10,17 +10,17 @@ import java.util.Objects;
 class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long movieId;
     private String title;
-    private int year;
+    private int yearMovie;
     private String description;
     private MovieCategory movieCategory;
     private String urlCover;
 
     Movie(Long id, String title, int year, String description, MovieCategory movieCategory, String urlCover) {
-        this.id = id;
+        this.movieId = id;
         this.title = title;
-        this.year = year;
+        this.yearMovie = year;
         this.description = description;
         this.movieCategory = movieCategory;
         this.urlCover = urlCover;
@@ -28,7 +28,7 @@ class Movie {
 
     Movie(String title, int year, String description, MovieCategory movieCategory, String urlCover) {
         this.title = title;
-        this.year = year;
+        this.yearMovie = year;
         this.description = description;
         this.movieCategory = movieCategory;
         this.urlCover = urlCover;
@@ -36,20 +36,20 @@ class Movie {
 
     Movie(){}
 
-    public int getYear() {
-        return year;
+    public int getYearMovie() {
+        return yearMovie;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setYearMovie(int yearMovie) {
+        this.yearMovie = yearMovie;
     }
 
-    Long getId() {
-        return id;
+    Long getMovieId() {
+        return movieId;
     }
 
-    void setId(Long id) {
-        this.id = id;
+    void setMovieId(Long movieId) {
+        this.movieId = movieId;
     }
 
     String getTitle() {
@@ -89,7 +89,7 @@ class Movie {
         this.description = movie.getDescription();
         this.movieCategory = movie.getMovieCategory();
         this.urlCover = movie.getUrlCover();
-        this.year = movie.getYear();
+        this.yearMovie = movie.getYearMovie();
     }
 
     @Override
@@ -97,11 +97,11 @@ class Movie {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return Objects.equals(id, movie.id) && Objects.equals(title, movie.title) && Objects.equals(description, movie.description) && movieCategory == movie.movieCategory && Objects.equals(urlCover, movie.urlCover);
+        return Objects.equals(movieId, movie.movieId) && Objects.equals(title, movie.title) && Objects.equals(description, movie.description) && movieCategory == movie.movieCategory && Objects.equals(urlCover, movie.urlCover);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, movieCategory, urlCover);
+        return Objects.hash(movieId, title, description, movieCategory, urlCover);
     }
 }
