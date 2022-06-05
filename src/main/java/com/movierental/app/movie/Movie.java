@@ -12,26 +12,37 @@ class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private int year;
     private String description;
     private MovieCategory movieCategory;
     private String urlCover;
 
-    Movie(Long id, String title, String description, MovieCategory movieCategory, String urlCover) {
+    Movie(Long id, String title, int year, String description, MovieCategory movieCategory, String urlCover) {
         this.id = id;
         this.title = title;
+        this.year = year;
         this.description = description;
         this.movieCategory = movieCategory;
         this.urlCover = urlCover;
     }
 
-    Movie(String title, String description, MovieCategory movieCategory, String urlCover) {
+    Movie(String title, int year, String description, MovieCategory movieCategory, String urlCover) {
         this.title = title;
+        this.year = year;
         this.description = description;
         this.movieCategory = movieCategory;
         this.urlCover = urlCover;
     }
 
     Movie(){}
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     Long getId() {
         return id;
@@ -78,6 +89,7 @@ class Movie {
         this.description = movie.getDescription();
         this.movieCategory = movie.getMovieCategory();
         this.urlCover = movie.getUrlCover();
+        this.year = movie.getYear();
     }
 
     @Override
