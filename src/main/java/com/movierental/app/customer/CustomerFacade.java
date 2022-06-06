@@ -29,6 +29,10 @@ public class CustomerFacade {
         return customerService.updateCustomer(email, customerDTO);
     }
 
+    public CustomerDTO showCustomerInfo(String firstName, String lastName) {
+        return customerService.showCustomerByName(firstName, lastName);
+    }
+
     public void deleteCustomer(String email) {
         customerService.deleteCustomer(email);
     }

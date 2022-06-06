@@ -5,7 +5,6 @@ import com.movierental.app.exception.CustomerNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +55,14 @@ class CustomerService {
         customerRepository.save(byEmail.get());
         log.info("Updated customer saved as a: " + customer.getFirstName() + " " + customer.getLastName());
         return customerConverter.entityToDto(byEmail.get());
+    }
+
+    CustomerDTO showCustomerByName(String firstName, String lastName) {
+        Optional<Customer> customerByName = customerRepository.findCustomerByFirstNameAndLastName(firstName, lastName);
+        if (customerByName.isEmpty()) {
+            throw new CustomerNotFoundException("Customer with this name " + firstName + " " + lastName + " not found!");
+        }
+        return customerConverter.entityToDto(customerByName.get());
     }
 
     Optional<Customer> getCustomerByMail(String email) {
