@@ -22,6 +22,12 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
+    @GetMapping("/{title}")
+    ResponseEntity<MovieDTO> showMovieInfoByTitle(@PathVariable String title) {
+        MovieDTO movieDTO = movieFacade.showMovieByTitle(title);
+        return new ResponseEntity<>(movieDTO, HttpStatus.OK);
+    }
+
     @PostMapping
     ResponseEntity<MovieDTO> saveMovie(@RequestBody MovieDTO movie) {
         MovieDTO movieDTO = movieFacade.saveNewMovie(movie);

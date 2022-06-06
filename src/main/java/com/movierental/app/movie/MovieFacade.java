@@ -21,6 +21,9 @@ public class MovieFacade {
         return movieService.getMoviesList();
     }
 
+    public MovieDTO showMovieByTitle(String title) {
+        return movieService.showMovieByTitle(title);
+    }
     public void deleteMovie(String title, Long yearMovie) {
         movieService.deleteMovie(title, yearMovie);
     }
