@@ -12,12 +12,12 @@ class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long movieId;
     private String title;
-    private int yearMovie;
+    private Long yearMovie;
     private String description;
-    private MovieCategory movieCategory;
+    private String movieCategory;
     private String urlCover;
 
-    Movie(Long id, String title, int year, String description, MovieCategory movieCategory, String urlCover) {
+    Movie(Long id, String title, Long year, String description, String movieCategory, String urlCover) {
         this.movieId = id;
         this.title = title;
         this.yearMovie = year;
@@ -26,7 +26,7 @@ class Movie {
         this.urlCover = urlCover;
     }
 
-    Movie(String title, int year, String description, MovieCategory movieCategory, String urlCover) {
+    Movie(String title, Long year, String description, String movieCategory, String urlCover) {
         this.title = title;
         this.yearMovie = year;
         this.description = description;
@@ -36,11 +36,11 @@ class Movie {
 
     Movie(){}
 
-    public int getYearMovie() {
+    public Long getYearMovie() {
         return yearMovie;
     }
 
-    public void setYearMovie(int yearMovie) {
+    public void setYearMovie(Long yearMovie) {
         this.yearMovie = yearMovie;
     }
 
@@ -68,11 +68,11 @@ class Movie {
         this.description = description;
     }
 
-    MovieCategory getMovieCategory() {
+    String getMovieCategory() {
         return movieCategory;
     }
 
-    void setMovieCategory(MovieCategory movieCategory) {
+    void setMovieCategory(String movieCategory) {
         this.movieCategory = movieCategory;
     }
 
@@ -97,7 +97,7 @@ class Movie {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return Objects.equals(movieId, movie.movieId) && Objects.equals(title, movie.title) && Objects.equals(description, movie.description) && movieCategory == movie.movieCategory && Objects.equals(urlCover, movie.urlCover);
+        return Objects.equals(movieId, movie.movieId) && Objects.equals(title, movie.title) && Objects.equals(description, movie.description) && movieCategory.equals(movie.movieCategory) && Objects.equals(urlCover, movie.urlCover);
     }
 
     @Override

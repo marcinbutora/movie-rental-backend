@@ -8,12 +8,14 @@ import javax.persistence.Entity;
 public class MovieDTO {
     private String title;
     private String description;
-    private MovieCategory movieCategory;
+    private Long yearMovie;
+    private String movieCategory;
     private String urlCover;
 
-    public MovieDTO(String title, String description, MovieCategory movieCategory, String urlCover) {
+    public MovieDTO(String title, String description, Long yearMovie, String movieCategory, String urlCover) {
         this.title = title;
         this.description = description;
+        this.yearMovie = yearMovie;
         this.movieCategory = movieCategory;
         this.urlCover = urlCover;
     }
@@ -37,11 +39,19 @@ public class MovieDTO {
         this.description = description;
     }
 
-    public MovieCategory getMovieCategory() {
+    public Long getYearMovie() {
+        return yearMovie;
+    }
+
+    public void setYearMovie(Long yearMovie) {
+        this.yearMovie = yearMovie;
+    }
+
+    public String getMovieCategory() {
         return movieCategory;
     }
 
-    public void setMovieCategory(MovieCategory movieCategory) {
+    public void setMovieCategory(String movieCategory) {
         this.movieCategory = movieCategory;
     }
 

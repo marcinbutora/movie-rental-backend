@@ -34,9 +34,9 @@ public class MovieController {
         return new ResponseEntity<>(movieDTO, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{title}/{year}")
-    ResponseEntity<?> deleteMovie(@PathVariable String title, @PathVariable int year) {
-        movieFacade.deleteMovie(title, year);
+    @DeleteMapping("/{title}")
+    ResponseEntity<?> deleteMovie(@PathVariable String title) {
+        movieFacade.deleteMovie(title);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

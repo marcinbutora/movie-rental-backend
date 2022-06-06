@@ -16,15 +16,15 @@ class MovieServiceTest {
     @Autowired
     private MovieFacade movieFacade;
 
-    private MovieDTO createMovie(String title, String description, MovieCategory movieCategory, String urlCover) {
-        return new MovieDTO(title, description, movieCategory, urlCover);
+    private MovieDTO createMovie(String title, String description, Long yearMovie, String movieCategory, String urlCover) {
+        return new MovieDTO(title, description, yearMovie, movieCategory, urlCover);
     }
 
     @Test
     void shouldReturnListOfMovies() {
         // given
-        MovieDTO movie1 = createMovie("Film 1", "Opis 1", MovieCategory.COMEDY, "url to cover 1");
-        MovieDTO movie2 = createMovie("Film 2", "Opis 2", MovieCategory.DRAMA, "url to cover 2");
+        MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2000L,"Komedia", "url to cover 1");
+        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2005L,"Dramat", "url to cover 2");
         // when
         movieFacade.saveNewMovie(movie1);
         movieFacade.saveNewMovie(movie2);
@@ -37,8 +37,8 @@ class MovieServiceTest {
     @Test
     void shouldReturnMoviesCountIdDB() {
         // given
-        MovieDTO movie1 = createMovie("Film 1", "Opis 1", MovieCategory.COMEDY, "url to cover 3");
-        MovieDTO movie2 = createMovie("Film 2", "Opis 2", MovieCategory.DRAMA, "url to cover 4");
+        MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2004L,"Komedia", "url to cover 3");
+        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2002L,"Dramat", "url to cover 4");
         movieFacade.saveNewMovie(movie1);
         movieFacade.saveNewMovie(movie2);
         // when
@@ -50,14 +50,25 @@ class MovieServiceTest {
     @Test
     void shouldUpdateMovieInfo() {
         // given
-        MovieDTO movie1 = createMovie("Film 1", "Opis 1", MovieCategory.COMEDY, "url to cover 5");
-        MovieDTO movie2 = createMovie("Film 2", "Opis 2", MovieCategory.DRAMA, "url to cover 6");
+        MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2002L,"Komedia", "url to cover 5");
+        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2002L, "Dramat", "url to cover 6");
         movieFacade.saveNewMovie(movie1);
         movieFacade.saveNewMovie(movie2);
         // when
         MovieDTO updatedMovie = movieFacade.updateMovie(movie1.getTitle(), movie2);
         // then
         assertThat(updatedMovie).isEqualTo(movie2);
+    }
+    @Test
+    void shouldRemoveMovie() {
+        // given
+        MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2000L,"Komedia", "url to cover 5");
+        // when
+        movieFacade.saveNewMovie(movie1);
+        movieFacade.deleteMovie("Film 1");
+        //then
+        final List<MovieDTO> moviesList = movieFacade.getMoviesList();
+        assertThat(moviesList).doesNotContain(movie1);
     }
 
 }

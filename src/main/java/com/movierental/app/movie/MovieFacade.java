@@ -21,8 +21,8 @@ public class MovieFacade {
         return movieService.getMoviesList();
     }
 
-    public void deleteMovie(String title, int year) {
-        movieService.deleteMovie(title, year);
+    public void deleteMovie(String title) {
+        movieService.deleteMovie(title);
     }
 
     public MovieDTO updateMovie(String title, MovieDTO movie) {
