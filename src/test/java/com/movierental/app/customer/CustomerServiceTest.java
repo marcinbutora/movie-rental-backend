@@ -98,4 +98,15 @@ class CustomerServiceTest {
         Assertions.assertThrows(CustomerAlreadyExistsException.class, () -> customerFacade.saveCustomer(customerDTO1));
     }
 
+    @Test
+    void shouldShowCustomerInfoByFirstNameAndLastName() {
+        // given
+        CustomerDTO customerDTO = createCustomerDTO("Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        // when
+        CustomerDTO customerSaved = customerFacade.saveCustomer(customerDTO);
+        CustomerDTO customerToShow = customerFacade.showCustomerInfo(customerDTO.getFirstName(), customerDTO.getLastName());
+        // then
+        assertThat(customerToShow).isEqualTo(customerSaved);
+    }
+
 }

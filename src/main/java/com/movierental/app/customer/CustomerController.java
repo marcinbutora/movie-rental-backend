@@ -21,6 +21,12 @@ class CustomerController {
         return new ResponseEntity<>(customerDTOS, HttpStatus.OK);
     }
 
+    @GetMapping("/{firstName}/{lastName}")
+    ResponseEntity<CustomerDTO> showCustomer(@PathVariable String firstName, @PathVariable String lastName) {
+        CustomerDTO customerDTO = customerFacade.showCustomerInfo(firstName, lastName);
+        return new ResponseEntity<>(customerDTO, HttpStatus.OK);
+    }
+
     @PostMapping
     ResponseEntity<CustomerDTO> saveCustomer(@RequestBody CustomerDTO customerDTO) {
         CustomerDTO customer = customerFacade.saveCustomer(customerDTO);
