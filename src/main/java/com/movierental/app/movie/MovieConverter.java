@@ -11,6 +11,7 @@ public class MovieConverter {
         MovieDTO movieDTO = new MovieDTO();
         movieDTO.setTitle(movie.getTitle());
         movieDTO.setDescription(movie.getDescription());
+        movieDTO.setYearMovie(movie.getYearMovie());
         movieDTO.setMovieCategory(movie.getMovieCategory());
         movieDTO.setUrlCover(movie.getUrlCover());
         return movieDTO;
@@ -24,6 +25,7 @@ public class MovieConverter {
         Movie movie = new Movie();
         movie.setTitle(movieDTO.getTitle());
         movie.setDescription(movieDTO.getDescription());
+        movie.setYearMovie(movieDTO.getYearMovie());
         movie.setMovieCategory(movieDTO.getMovieCategory());
         movie.setUrlCover(movieDTO.getUrlCover());
         return movie;

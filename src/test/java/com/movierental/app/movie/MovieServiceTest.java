@@ -51,11 +51,11 @@ class MovieServiceTest {
     void shouldUpdateMovieInfo() {
         // given
         MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2002L,"Komedia", "url to cover 5");
-        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2002L, "Dramat", "url to cover 6");
+        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2004L, "Dramat", "url to cover 6");
         movieFacade.saveNewMovie(movie1);
         movieFacade.saveNewMovie(movie2);
         // when
-        MovieDTO updatedMovie = movieFacade.updateMovie(movie1.getTitle(), movie2);
+        MovieDTO updatedMovie = movieFacade.updateMovie(movie1.getTitle(), movie1.getYearMovie(), movie2);
         // then
         assertThat(updatedMovie).isEqualTo(movie2);
     }
