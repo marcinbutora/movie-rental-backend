@@ -21,12 +21,12 @@ public class MovieFacade {
         return movieService.getMoviesList();
     }
 
-    public void deleteMovie(String title) {
-        movieService.deleteMovie(title);
+    public void deleteMovie(Long movieId) {
+        movieService.deleteMovie(movieId);
     }
 
-    public MovieDTO updateMovie(String title, Long year, MovieDTO movie) {
-        return movieService.updateMovie(title, year, movie);
+    public MovieDTO updateMovie(Long movieId, MovieDTO movie) {
+        return movieService.updateMovie(movieId, movie);
     }
 
     public int getMoviesCount() {
