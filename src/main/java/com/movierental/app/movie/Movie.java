@@ -26,21 +26,13 @@ class Movie {
         this.urlCover = urlCover;
     }
 
-    Movie(String title, Long year, String description, String movieCategory, String urlCover) {
-        this.title = title;
-        this.yearMovie = year;
-        this.description = description;
-        this.movieCategory = movieCategory;
-        this.urlCover = urlCover;
-    }
-
     Movie(){}
 
-    public Long getYearMovie() {
+    Long getYearMovie() {
         return yearMovie;
     }
 
-    public void setYearMovie(Long yearMovie) {
+    void setYearMovie(Long yearMovie) {
         this.yearMovie = yearMovie;
     }
 
@@ -85,6 +77,7 @@ class Movie {
     }
 
     void update(Movie movie) {
+        this.movieId = movie.getMovieId();
         this.title = movie.getTitle();
         this.description = movie.getDescription();
         this.movieCategory = movie.getMovieCategory();
