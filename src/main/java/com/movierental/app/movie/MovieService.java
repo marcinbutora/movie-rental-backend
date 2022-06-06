@@ -52,6 +52,14 @@ class MovieService {
         return movieConverter.entityToDto(foundedMovie.get());
     }
 
+    MovieDTO showMovieByTitle(String title) {
+        Optional<Movie> movieByTitle = movieRepository.findMovieByTitle(title);
+        if (movieByTitle.isEmpty()) {
+            throw new MovieNotFoundException("Movie with this title " + title + " not found!");
+        }
+        return movieConverter.entityToDto(movieByTitle.get());
+    }
+
     int getMoviesCount() {
         return movieRepository.findAll().size();
     }

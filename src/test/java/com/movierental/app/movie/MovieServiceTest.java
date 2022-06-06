@@ -32,8 +32,8 @@ class MovieServiceTest {
     @Test
     void shouldReturnListOfMovies() {
         // given
-        MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2000L,"Komedia", "url to cover 1");
-        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2005L,"Dramat", "url to cover 2");
+        MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2000L, "Komedia", "url to cover 1");
+        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2005L, "Dramat", "url to cover 2");
         // when
         movieFacade.saveNewMovie(movie1);
         movieFacade.saveNewMovie(movie2);
@@ -46,8 +46,8 @@ class MovieServiceTest {
     @Test
     void shouldReturnMoviesCountIdDB() {
         // given
-        MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2004L,"Komedia", "url to cover 3");
-        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2002L,"Dramat", "url to cover 4");
+        MovieDTO movie1 = createMovie("Film 1", "Opis 1", 2004L, "Komedia", "url to cover 3");
+        MovieDTO movie2 = createMovie("Film 2", "Opis 2", 2002L, "Dramat", "url to cover 4");
         // when
         movieFacade.saveNewMovie(movie1);
         movieFacade.saveNewMovie(movie2);
@@ -55,10 +55,11 @@ class MovieServiceTest {
         // then
         assertThat(moviesCount).isEqualTo(2);
     }
+
     @Test
     void shouldRemoveMovieByID() {
         // given
-        MovieDTO movie = createMovie( "Testowy film", "Opis", 2000L, "Horror", "url-to-cover");
+        MovieDTO movie = createMovie("Testowy film", "Opis", 2000L, "Horror", "url-to-cover");
         // when
         movieFacade.saveNewMovie(movie);
         movieFacade.deleteMovie(movie.getTitle(), movie.getYearMovie());
@@ -70,25 +71,36 @@ class MovieServiceTest {
     @Test
     void shouldSaveMovie() {
         // given
-        MovieDTO movie = createMovie( "Test", "Opis", 1998L, "Horror", "url-to-cover");
+        MovieDTO movie = createMovie("Test", "Opis", 1998L, "Horror", "url-to-cover");
         // when
         MovieDTO savedMovie = movieFacade.saveNewMovie(movie);
         // then
         assertThat(movie).isEqualTo(savedMovie);
     }
 
-   @Test
-   void shouldUpdateMovie() {
+    @Test
+    void shouldUpdateMovie() {
         // given
-       MovieDTO movie1 = createMovie("Testowy", "Film", 1998L, "Horror", "url-to-path");
-       MovieDTO movie2 = createMovie("Testowy 2", "Film Komedia", 1998L, "Horror", "url-to-path");
+        MovieDTO movie1 = createMovie("Testowy", "Film", 1998L, "Horror", "url-to-path");
+        MovieDTO movie2 = createMovie("Testowy 2", "Film Komedia", 1998L, "Horror", "url-to-path");
         // when
-       movieFacade.saveNewMovie(movie1);
-       movieFacade.saveNewMovie(movie2);
-       MovieDTO updatedMovie = movieFacade.updateMovie(movie1.getTitle(), movie1.getYearMovie(), movie2);
-       // then
-       assertThat(updatedMovie).isEqualTo(movie2);
-   }
+        movieFacade.saveNewMovie(movie1);
+        movieFacade.saveNewMovie(movie2);
+        MovieDTO updatedMovie = movieFacade.updateMovie(movie1.getTitle(), movie1.getYearMovie(), movie2);
+        // then
+        assertThat(updatedMovie).isEqualTo(movie2);
+    }
+
+    @Test
+    void shouldDisplayMovieInfoByTitle() {
+        // given
+        MovieDTO movieDTO = createMovie("Titanic", "Opis", 1995L, "Dramat", "url-to-path");
+        // when
+        MovieDTO savedMovie = movieFacade.saveNewMovie(movieDTO);
+        MovieDTO displayingMovie = movieFacade.showMovieByTitle(movieDTO.getTitle());
+        // then
+        assertThat(displayingMovie).isEqualTo(savedMovie);
+    }
 
 
 }
