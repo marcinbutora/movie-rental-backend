@@ -28,15 +28,15 @@ public class MovieController {
         return new ResponseEntity<>(movieDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{title}")
-    ResponseEntity<MovieDTO> updateMovie(@PathVariable String title, @RequestBody MovieDTO movie) {
-        MovieDTO movieDTO = movieFacade.updateMovie(title, movie);
+    @PutMapping("/{title}/{year}")
+    ResponseEntity<MovieDTO> updateMovie(@PathVariable String title, @PathVariable Long year, @RequestBody MovieDTO movie) {
+        MovieDTO movieDTO = movieFacade.updateMovie(title, year, movie);
         return new ResponseEntity<>(movieDTO, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{title}/{year}")
-    ResponseEntity<?> deleteMovie(@PathVariable String title, @PathVariable int year) {
-        movieFacade.deleteMovie(title, year);
+    @DeleteMapping("/{title}")
+    ResponseEntity<?> deleteMovie(@PathVariable String title) {
+        movieFacade.deleteMovie(title);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
