@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 public class MovieConverter {
     public MovieDTO entityToDto(Movie movie) {
         MovieDTO movieDTO = new MovieDTO();
-        movieDTO.setMovieId(movie.getMovieId());
         movieDTO.setTitle(movie.getTitle());
         movieDTO.setDescription(movie.getDescription());
         movieDTO.setYearMovie(movie.getYearMovie());
@@ -24,7 +23,6 @@ public class MovieConverter {
 
     public Movie dtoToEntity(MovieDTO movieDTO) {
         Movie movie = new Movie();
-        movie.setMovieId(movieDTO.getMovieId());
         movie.setTitle(movieDTO.getTitle());
         movie.setDescription(movieDTO.getDescription());
         movie.setYearMovie(movieDTO.getYearMovie());

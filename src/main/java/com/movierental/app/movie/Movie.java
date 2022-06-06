@@ -77,7 +77,6 @@ class Movie {
     }
 
     void update(Movie movie) {
-        this.movieId = movie.getMovieId();
         this.title = movie.getTitle();
         this.description = movie.getDescription();
         this.movieCategory = movie.getMovieCategory();

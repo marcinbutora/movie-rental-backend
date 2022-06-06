@@ -6,15 +6,13 @@ import javax.persistence.Entity;
 
 @Data
 public class MovieDTO {
-    private Long movieId;
     private String title;
     private String description;
     private Long yearMovie;
     private String movieCategory;
     private String urlCover;
 
-    public MovieDTO(Long movieId, String title, String description, Long yearMovie, String movieCategory, String urlCover) {
-        this.movieId = movieId;
+    public MovieDTO(String title, String description, Long yearMovie, String movieCategory, String urlCover) {
         this.title = title;
         this.description = description;
         this.yearMovie = yearMovie;
@@ -23,14 +21,6 @@ public class MovieDTO {
     }
 
     public MovieDTO() {
-    }
-
-    public Long getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
     }
 
     public String getTitle() {
