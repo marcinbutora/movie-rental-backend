@@ -6,23 +6,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.transaction.Transactional;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Transactional
 class CustomerServiceTest {
     @Autowired
     private CustomerFacade customerFacade;
     @Autowired
     private CustomerConverter customerConverter;
 
-    private CustomerDTO createCustomerDTO(String firstName, String lastName, String email, LocalDateTime created) {
+    private CustomerDTO createCustomerDTO(Long id, String firstName, String lastName, String email, LocalDateTime created) {
         CustomerDTO customerDTOS = new CustomerDTO();
+        customerDTOS.setId(id);
         customerDTOS.setFirstName(firstName);
         customerDTOS.setLastName(lastName);
         customerDTOS.setEmail(email);
@@ -33,8 +33,8 @@ class CustomerServiceTest {
     @Test
     void shouldReturnListOfCustomers() {
         // given
-        CustomerDTO customer1 = createCustomerDTO("Marcin", "Kowalski", "mbutora@gmail.com", LocalDateTime.now());
-        CustomerDTO customer2 = createCustomerDTO("Anna", "Kowalska", "abutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customer1 = createCustomerDTO(1L, "Marcin", "Kowalski", "mbutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customer2 = createCustomerDTO(2L, "Anna", "Kowalska", "abutora@gmail.com", LocalDateTime.now());
         // when
         CustomerDTO customerSavedOne = customerFacade.saveCustomer(customer1);
         CustomerDTO customerSavedTwo = customerFacade.saveCustomer(customer2);
@@ -46,7 +46,7 @@ class CustomerServiceTest {
     @Test
     void shouldReturnCustomerByEmail() {
         // given
-        CustomerDTO customer = createCustomerDTO("Marcin", "Butora", "kabutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customer = createCustomerDTO(1L,"Marcin", "Butora", "kabutora@gmail.com", LocalDateTime.now());
         // when
         CustomerDTO savedCustomer = customerFacade.saveCustomer(customer);
         // then
@@ -56,7 +56,7 @@ class CustomerServiceTest {
     @Test
     void shouldSaveCustomer() {
         // given
-        CustomerDTO customer = createCustomerDTO("Jan", "Kowalski", "jkowalski@gmail.com", LocalDateTime.now());
+        CustomerDTO customer = createCustomerDTO(1L,"Jan", "Kowalski", "jkowalski@gmail.com", LocalDateTime.now());
         // when
         CustomerDTO savedCustomer = customerFacade.saveCustomer(customer);
         // then
@@ -66,7 +66,7 @@ class CustomerServiceTest {
     @Test
     void shouldRemoveCustomerGivenByEmail() {
         // given
-        CustomerDTO customer = createCustomerDTO( "John", "Smith", "jddsmith@gmail.com", LocalDateTime.now());
+        CustomerDTO customer = createCustomerDTO( 1L,"John", "Smith", "jddsmith@gmail.com", LocalDateTime.now());
         // when
         customerFacade.saveCustomer(customer);
         customerFacade.deleteCustomer(customer.getEmail());
@@ -78,8 +78,8 @@ class CustomerServiceTest {
     @Test
     void shouldUpdateCustomerByGivenMail() {
         // given
-        CustomerDTO customerInDB = createCustomerDTO( "Marcin", "Butora", "kambutora@gmail.com", LocalDateTime.now());
-        CustomerDTO customerToChange = createCustomerDTO("Anna", "Kowalska", "akowalska@gmail.com", LocalDateTime.now());
+        CustomerDTO customerInDB = createCustomerDTO( 1L,"Marcin", "Butora", "kambutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customerToChange = createCustomerDTO(1L,"Anna", "Kowalska", "akowalska@gmail.com", LocalDateTime.now());
         // when
         customerFacade.saveCustomer(customerInDB);
         CustomerDTO customerUpdated = customerFacade.updateCustomer(customerInDB.getEmail(), customerToChange);
@@ -90,8 +90,8 @@ class CustomerServiceTest {
     @Test
     void shouldThrowExceptionWhenCustomerAlreadyExists() {
         // given
-        CustomerDTO customerDTO = new CustomerDTO("Test", "Test", "test@test.com", LocalDateTime.now());
-        CustomerDTO customerDTO1 = new CustomerDTO("Test 2", "Test 2", "test@test.com", LocalDateTime.now());
+        CustomerDTO customerDTO = new CustomerDTO(1L,"Test", "Test", "test@test.com", LocalDateTime.now());
+        CustomerDTO customerDTO1 = new CustomerDTO(1L,"Test 2", "Test 2", "test@test.com", LocalDateTime.now());
         // when
         customerFacade.saveCustomer(customerDTO);
         // then
@@ -101,7 +101,7 @@ class CustomerServiceTest {
     @Test
     void shouldShowCustomerInfoByFirstNameAndLastName() {
         // given
-        CustomerDTO customerDTO = createCustomerDTO("Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customerDTO = createCustomerDTO(1L,"Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
         // when
         CustomerDTO customerSaved = customerFacade.saveCustomer(customerDTO);
         CustomerDTO customerToShow = customerFacade.showCustomerInfo(customerDTO.getFirstName(), customerDTO.getLastName());
