@@ -101,7 +101,7 @@ class CustomerServiceTest {
     @Test
     void shouldShowCustomerInfoByFirstNameAndLastName() {
         // given
-        CustomerDTO customerDTO = createCustomerDTO(1L,"Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.now());
+        CustomerDTO customerDTO = createCustomerDTO(1L,"Marcin", "Butora", "mbutora@gmail.com", LocalDateTime.of(2022,4,6,10,21,11));
         // when
         CustomerDTO customerSaved = customerFacade.saveCustomer(customerDTO);
         CustomerDTO customerToShow = customerFacade.showCustomerInfo(customerDTO.getFirstName(), customerDTO.getLastName());
