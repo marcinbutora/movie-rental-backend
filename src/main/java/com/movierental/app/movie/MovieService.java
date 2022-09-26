@@ -30,22 +30,15 @@ class MovieService {
     }
 
     void deleteMovie(String title, Long yearMovie) {
-        Optional<Movie> foundedMovie = movieRepository.findMovieByTitleAndYearMovie(title, yearMovie);
-        if (foundedMovie.isEmpty()) {
-            log.warn("Movie with title: " + title + "  was not found!");
-            throw new MovieNotFoundException("Movie with title: " + title + " was not found!");
-        }
+        getMovieByTitleAndYear(title, yearMovie, "Movie with title: ", "  was not found!", " was not found!");
         log.info("Movie " + title + "  was removed!");
         movieRepository.deleteMovieByTitle(title);
     }
 
+
     MovieDTO updateMovie(String title, Long yearMovie, MovieDTO movie) {
         log.info("Searching for movie by title: " + title);
-        Optional<Movie> foundedMovie = movieRepository.findMovieByTitleAndYearMovie(title, yearMovie);
-        if (foundedMovie.isEmpty()) {
-            log.warn("Movie with this title: " + title + " is not exist!");
-            throw new MovieNotFoundException("Movie with this title: " + title + " is not exist!");
-        }
+        Optional<Movie> foundedMovie = getMovieByTitleAndYear(title, yearMovie, "Movie with this title: ", " is not exist!", " is not exist!");
         foundedMovie.get().update(movieConverter.dtoToEntity(movie));
         movieRepository.save(foundedMovie.get());
         log.info("Updated movie saved as a: " + movie.getTitle());
@@ -62,6 +55,14 @@ class MovieService {
 
     int getMoviesCount() {
         return movieRepository.findAll().size();
+    }
+    private Optional<Movie> getMovieByTitleAndYear(String title, Long yearMovie, String x, String x1, String x2) {
+        Optional<Movie> foundedMovie = movieRepository.findMovieByTitleAndYearMovie(title, yearMovie);
+        if (foundedMovie.isEmpty()) {
+            log.warn(x + title + x1);
+            throw new MovieNotFoundException(x + title + x2);
+        }
+        return foundedMovie;
     }
 
 
