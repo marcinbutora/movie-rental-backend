@@ -7,34 +7,34 @@ import java.util.Optional;
 
 @Component
 public class CustomerFacade {
-    private final CustomerService customerService;
+    private final CustomerService service;
 
     public CustomerFacade(CustomerService customerService) {
-        this.customerService = customerService;
+        this.service = customerService;
     }
 
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
-        return customerService.savePerson(customerDTO);
+        return service.savePerson(customerDTO);
     }
 
     public List<CustomerDTO> getCustomers() {
-        return customerService.getCustomersList();
+        return service.getCustomersList();
     }
 
     public Optional<Customer> getCustomerByEmail(String email) {
-        return customerService.getCustomerByMail(email);
+        return service.getCustomerByMail(email);
     }
 
     public CustomerDTO updateCustomer(String email, CustomerDTO customerDTO) {
-        return customerService.updateCustomer(email, customerDTO);
+        return service.updateCustomer(email, customerDTO);
     }
 
     public CustomerDTO showCustomerInfo(String firstName, String lastName) {
-        return customerService.showCustomerByName(firstName, lastName);
+        return service.showCustomerByName(firstName, lastName);
     }
 
     public void deleteCustomer(String email) {
-        customerService.deleteCustomer(email);
+        service.deleteCustomer(email);
     }
 
 }
